@@ -14,15 +14,26 @@ export default defineConfig(({ mode }) => ({
       "clarifyai.space",
     ],
   },
-  plugins: [
-    react({
-      jsxImportSource: "react",
-    }),
-    mode === "development" && componentTagger(),
-  ].filter(Boolean),
+  plugins: [react(), mode === "development" && componentTagger()].filter(
+    Boolean
+  ),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom"],
+          vendor: ["@radix-ui/react-slot", "@radix-ui/react-toast"],
+        },
+      },
+    },
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom"],
   },
 }));
