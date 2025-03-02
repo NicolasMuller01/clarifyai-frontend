@@ -8,11 +8,15 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    allowedHosts: [
+      "clarifyai-frontend-production.up.railway.app",
+      "localhost",
+      "clarifyai.space",
+    ],
   },
   plugins: [
     react({
       jsxImportSource: "react",
-      runtime: "automatic",
     }),
     mode === "development" && componentTagger(),
   ].filter(Boolean),
