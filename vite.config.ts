@@ -20,20 +20,14 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      react: path.resolve(__dirname, "./node_modules/react"),
     },
   },
-  build: {
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          react: ["react", "react-dom"],
-          vendor: ["@radix-ui/react-slot", "@radix-ui/react-toast"],
-        },
-      },
-    },
+  define: {
+    "process.env.NODE_ENV": JSON.stringify(mode),
   },
   optimizeDeps: {
     include: ["react", "react-dom"],
+    force: true,
   },
 }));
